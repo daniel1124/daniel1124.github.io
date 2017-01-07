@@ -5,17 +5,36 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-10-23T00:52:19.000Z</updated>
+  <updated>2017-01-07T16:12:19.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>lightGBM</title>
+    <link href="http://yoursite.com/2017/01/lightGBM/"/>
+    <id>http://yoursite.com/2017/01/lightGBM/</id>
+    <published>2017-01-07T16:05:18.000Z</published>
+    <updated>2017-01-07T16:12:19.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Microsoft-LightGBM"><a href="#Microsoft-LightGBM" class="headerlink" title="Microsoft LightGBM"></a>Microsoft LightGBM</h1><p>People in ML community should be familiar with <a href="http://xgboost.readthedocs.io/en/latest/" target="_blank" rel="external">XGBoost</a>, which is a fast implementation of Gradient Boosting Tree.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Microsoft-LightGBM&quot;&gt;&lt;a href=&quot;#Microsoft-LightGBM&quot; class=&quot;headerlink&quot; title=&quot;Microsoft LightGBM&quot;&gt;&lt;/a&gt;Microsoft LightGBM&lt;/h1&gt;&lt;p&gt;People
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Alpha Beta Pruning</title>
     <link href="http://yoursite.com/2016/09/alpha-beta-pruning/"/>
     <id>http://yoursite.com/2016/09/alpha-beta-pruning/</id>
     <published>2016-09-12T18:33:49.000Z</published>
-    <updated>2016-10-23T00:52:19.000Z</updated>
+    <updated>2017-01-07T16:03:51.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Minimax"><a href="#Minimax" class="headerlink" title="Minimax"></a>Minimax</h1><p>Minimax algorithm with <a href="https://en.wikipedia.org/wiki/Alpha–beta_pruning" target="_blank" rel="external">Alpha-beta pruning</a> is a very classic algorithm in AI used for improving the efficiency of game tree searching. It’s not very different from typical branch &amp; bound types of algorithms in optimization fields. <a href="http://inst.eecs.berkeley.edu/~cs61b/fa14/ta-materials/apps/ab_tree_practice/index.html" target="_blank" rel="external">This link</a> provides a very good visualization.</p>
 <p>In practice there are many different variations of minimax, depending on the characteristics of the game. For example, there are games with perfect imformation (go) vs. imperfect imformation (Texas Hold ‘em), or deterministic (chess) vs. stochastic (backgammon). In any case the algorithm should work in similar fashion, with only variations such as game states may be defined differently or the utility function for each move might vary (e.g., score vs. expected score).</p>

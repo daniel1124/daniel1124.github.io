@@ -4,6 +4,13 @@
   
     
     <entry>
+      <title><![CDATA[lightGBM]]></title>
+      <url>http://yoursite.com/2017/01/lightGBM/</url>
+      <content type="html"><![CDATA[<h1 id="Microsoft-LightGBM"><a href="#Microsoft-LightGBM" class="headerlink" title="Microsoft LightGBM"></a>Microsoft LightGBM</h1><p>People in ML community should be familiar with <a href="http://xgboost.readthedocs.io/en/latest/" target="_blank" rel="external">XGBoost</a>, which is a fast implementation of Gradient Boosting Tree.</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Alpha Beta Pruning]]></title>
       <url>http://yoursite.com/2016/09/alpha-beta-pruning/</url>
       <content type="html"><![CDATA[<h1 id="Minimax"><a href="#Minimax" class="headerlink" title="Minimax"></a>Minimax</h1><p>Minimax algorithm with <a href="https://en.wikipedia.org/wiki/Alpha–beta_pruning" target="_blank" rel="external">Alpha-beta pruning</a> is a very classic algorithm in AI used for improving the efficiency of game tree searching. It’s not very different from typical branch &amp; bound types of algorithms in optimization fields. <a href="http://inst.eecs.berkeley.edu/~cs61b/fa14/ta-materials/apps/ab_tree_practice/index.html" target="_blank" rel="external">This link</a> provides a very good visualization.</p>
