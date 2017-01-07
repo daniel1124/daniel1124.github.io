@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="Microsoft LightGBMPeople in ML community should be familiar with XGBoost, which is a fast implementation of Gradient Boosting Tree.">
+<meta name="description" content="Microsoft LightGBMPeople in ML community should be familiar with XGBoost, which is a fast implementation of Gradient Boosting Tree Model. Yet recently Microsoft DMTK team open-sourced its own implemen">
 <meta property="og:type" content="article">
-<meta property="og:title" content="lightGBM">
+<meta property="og:title" content="Fast Gradient Boosting Machine from Microsoft">
 <meta property="og:url" content="http://yoursite.com/2017/01/lightGBM/index.html">
 <meta property="og:site_name" content="Bin Han">
-<meta property="og:description" content="Microsoft LightGBMPeople in ML community should be familiar with XGBoost, which is a fast implementation of Gradient Boosting Tree.">
-<meta property="og:updated_time" content="2017-01-07T16:12:19.000Z">
+<meta property="og:description" content="Microsoft LightGBMPeople in ML community should be familiar with XGBoost, which is a fast implementation of Gradient Boosting Tree Model. Yet recently Microsoft DMTK team open-sourced its own implemen">
+<meta property="og:updated_time" content="2017-01-07T17:45:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="lightGBM">
-<meta name="twitter:description" content="Microsoft LightGBMPeople in ML community should be familiar with XGBoost, which is a fast implementation of Gradient Boosting Tree.">
+<meta name="twitter:title" content="Fast Gradient Boosting Machine from Microsoft">
+<meta name="twitter:description" content="Microsoft LightGBMPeople in ML community should be familiar with XGBoost, which is a fast implementation of Gradient Boosting Tree Model. Yet recently Microsoft DMTK team open-sourced its own implemen">
 
 
 
@@ -118,7 +118,7 @@
 
   <link rel="canonical" href="http://yoursite.com/2017/01/lightGBM/"/>
 
-  <title> lightGBM | Bin Han </title>
+  <title> Fast Gradient Boosting Machine from Microsoft | Bin Han </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -270,7 +270,7 @@
             
             
               
-                lightGBM
+                Fast Gradient Boosting Machine from Microsoft
               
             
           </h1>
@@ -317,7 +317,42 @@
       
 
       
-        <h1 id="Microsoft-LightGBM"><a href="#Microsoft-LightGBM" class="headerlink" title="Microsoft LightGBM"></a>Microsoft LightGBM</h1><p>People in ML community should be familiar with <a href="http://xgboost.readthedocs.io/en/latest/" target="_blank" rel="external">XGBoost</a>, which is a fast implementation of Gradient Boosting Tree.</p>
+        <h1 id="Microsoft-LightGBM"><a href="#Microsoft-LightGBM" class="headerlink" title="Microsoft LightGBM"></a>Microsoft LightGBM</h1><p>People in ML community should be familiar with <a href="http://xgboost.readthedocs.io/en/latest/" target="_blank" rel="external">XGBoost</a>, which is a fast implementation of Gradient Boosting Tree Model. Yet recently Microsoft <a href="https://www.dmtk.io/" target="_blank" rel="external">DMTK</a> team open-sourced its own implementation of GBM named <a href="https://github.com/Microsoft/LightGBM" target="_blank" rel="external">LightGBM</a>, claiming to be even faster than XGBoost and consume much less memory. It has accumulated &gt;2000 stars and &gt;400 forks on GitHub in just a few months.</p>
+<h1 id="What’s-Nice-about-it"><a href="#What’s-Nice-about-it" class="headerlink" title="What’s Nice about it"></a>What’s Nice about it</h1><p>The fundamental improvement on algorithms is constructing histograms on continuous features, instead of pre-sorting feature values. In GBM setting the precision loss is almost negligible b/c each tree can be regarded as a weak learner. There are other interesting features as well:</p>
+<ul>
+<li>no need to construct dummy columns for categorical features (avoid one-hot encoding)</li>
+<li>leaf-wise tree growth with an option to control tree depth</li>
+<li>use histogram subtraction to derive child node based on parent node and sibling node</li>
+<li>sparse feature optimization</li>
+<li>supports parallel computing through MPI/OpenMP, and also optimized the algorithms in parallel learning</li>
+<li>can deploy/load model with light weight .json file</li>
+<li>can continue to train on previous saved model with changed setting and specs</li>
+</ul>
+<p>Please check more detailed explanations <a href="https://github.com/Microsoft/LightGBM/wiki/Features" target="_blank" rel="external">here</a>.</p>
+<h1 id="Installation-on-Mac"><a href="#Installation-on-Mac" class="headerlink" title="Installation (on Mac)"></a>Installation (on Mac)</h1><p>The <a href="https://github.com/Microsoft/LightGBM/wiki/Installation-Guide" target="_blank" rel="external">installation guide</a> is very straightforward, but might subject to slight tweak for various OS. The important thing is that LightGBM is built on version 6.* of gcc/g++ so make sure you have the right version installed.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">brew update</div><div class="line">brew install cmake</div><div class="line">brew reinstall gcc --without-multilib</div><div class="line">git clone --recursive https://github.com/Microsoft/LightGBM ; cd LightGBM</div><div class="line">mkdir build ; cd build</div><div class="line">cmake -DCMAKE_CXX_COMPILER=g++-6 -DCMAKE_C_COMPILER=gcc-6 .. </div><div class="line">make -j</div></pre></td></tr></table></figure>
+<p>To install the Python API you need to do the following</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd LightGBM/python-package</div><div class="line">python setup.py install</div></pre></td></tr></table></figure>
+<h1 id="Python-API"><a href="#Python-API" class="headerlink" title="Python API"></a>Python API</h1><p>I found the API very clean and easy-to-use. For example, to initialize the data:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> lightgbm <span class="keyword">as</span> lgb</div><div class="line"></div><div class="line">lgb_train = lgb.Dataset(X_train, y_train,</div><div class="line">                        weight=W_train, free_raw_data=<span class="keyword">False</span>)</div><div class="line">lgb_eval = lgb.Dataset(X_test, y_test, reference=lgb_train,</div><div class="line">                       weight=W_test, free_raw_data=<span class="keyword">False</span>)</div></pre></td></tr></table></figure>
+<p>To specify model parameters and train the model:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">params = &#123;</div><div class="line">    <span class="string">'boosting_type'</span>: <span class="string">'gbdt'</span>,</div><div class="line">    <span class="string">'objective'</span>: <span class="string">'binary'</span>,</div><div class="line">    <span class="string">'metric'</span>: <span class="string">'binary_logloss'</span>,</div><div class="line">    <span class="string">'num_leaves'</span>: <span class="number">31</span>,</div><div class="line">    <span class="string">'learning_rate'</span>: <span class="number">0.05</span>,</div><div class="line">    <span class="string">'feature_fraction'</span>: <span class="number">0.9</span>,</div><div class="line">    <span class="string">'bagging_fraction'</span>: <span class="number">0.8</span>,</div><div class="line">    <span class="string">'bagging_freq'</span>: <span class="number">5</span>,</div><div class="line">    <span class="string">'verbose'</span>: <span class="number">0</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">gbm = lgb.train(params, lgb_train, num_boost_round=<span class="number">10</span>,</div><div class="line">                valid_sets=lgb_train,  <span class="comment"># eval training data</span></div><div class="line">                categorical_feature=[<span class="number">21</span>])</div></pre></td></tr></table></figure>
+<p>To save model:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gbm.save_model(<span class="string">'model.txt'</span>)</div></pre></td></tr></table></figure>
+<p>To continue the training from saved model:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gbm = lgb.train(params, lgb_train, num_boost_round=<span class="number">10</span>,</div><div class="line">                init_model=<span class="string">'model.txt'</span>, valid_sets=lgb_eval)</div></pre></td></tr></table></figure>
+<p>Or continue the training with the model object and changed settings</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">gbm = lgb.train(params, lgb_train, num_boost_round=<span class="number">10</span>,</div><div class="line">				learning_rates=<span class="keyword">lambda</span> iter: <span class="number">0.05</span> * (<span class="number">0.99</span> ** iter),</div><div class="line">				valid_sets=lgb_eval, init_model=gbm)</div></pre></td></tr></table></figure>
+<p>To predict:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">y_pred = gbm.predict(X_test, num_iteration=gbm.best_iteration)</div></pre></td></tr></table></figure>
+<p>All example code above can be found <a href="https://github.com/Microsoft/LightGBM/tree/master/examples/python-guide" target="_blank" rel="external">here</a></p>
+<h1 id="Future"><a href="#Future" class="headerlink" title="Future"></a>Future</h1><p>LightGBM provides C++ and Python API as of now. The DMTK team has plans to support the following platforms in the future:</p>
+<ul>
+<li>R and Julia</li>
+<li>Hadoop and Spark</li>
+<li>GPU speedup</li>
+</ul>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p>Meng, Q., Ke, G., Wang, T., Chen, W., Ye, Q., Ma, Z. M., &amp; Liu, T. (2016). A Communication-Efficient Parallel Algorithm for Decision Tree. In Advances in Neural Information Processing Systems (pp. 1271-1279).</p>
 
       
     </div>
@@ -490,7 +525,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Microsoft-LightGBM"><span class="nav-number">1.</span> <span class="nav-text">Microsoft LightGBM</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Microsoft-LightGBM"><span class="nav-number">1.</span> <span class="nav-text">Microsoft LightGBM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#What’s-Nice-about-it"><span class="nav-number">2.</span> <span class="nav-text">What’s Nice about it</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Installation-on-Mac"><span class="nav-number">3.</span> <span class="nav-text">Installation (on Mac)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python-API"><span class="nav-number">4.</span> <span class="nav-text">Python API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Future"><span class="nav-number">5.</span> <span class="nav-text">Future</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">6.</span> <span class="nav-text">Reference</span></a></li></ol></div>
             
           </div>
         </section>
@@ -618,7 +653,7 @@
     <script type="text/javascript">
       var disqus_shortname = 'bhan-ds';
       var disqus_identifier = '2017/01/lightGBM/';
-      var disqus_title = "lightGBM";
+      var disqus_title = "Fast Gradient Boosting Machine from Microsoft";
       var disqus_url = 'http://yoursite.com/2017/01/lightGBM/';
 
       function run_disqus_script(disqus_script){
